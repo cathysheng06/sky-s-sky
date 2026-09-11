@@ -1,0 +1,950 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Cathy Sheng</title>
+<meta name="description" content="Cathy Sheng — EECS at Berkeley. Robotics and AI research, writing, art, and a lot of wandering." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=JetBrains+Mono:wght@500&family=Karla:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" />
+
+<style>
+  /* ---------- tokens : light / default ---------- */
+  /* ink-wash + moonrise: rice paper, ink, antique gold, seal-ink red */
+  :root {
+    --ground: #f6f2ea;
+    --ground-2: #ece4d3;
+    --panel: #faf8f2;
+    --ink: #201e28;
+    --ink-soft: #5f596b;
+    --hair: color-mix(in srgb, var(--ink) 14%, transparent);
+    --moon: #d1962f;
+    --seal: #a8402c;
+    --trace: color-mix(in srgb, var(--ink) 5%, transparent);
+    --trace-blend: multiply;
+    --focus: var(--moon);
+
+    --f-display: "Newsreader", Georgia, "Times New Roman", serif;
+    --f-body: "Karla", "Helvetica Neue", Arial, sans-serif;
+    --f-hand: "Caveat", "Bradley Hand", cursive;
+    --f-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+    --measure: 38rem;
+    --content: 44rem;
+    --page: 66rem;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #17151f;
+      --ground-2: #1e1b28;
+      --panel: #1c1926;
+      --ink: #ede7da;
+      --ink-soft: #9a93a6;
+      --hair: color-mix(in srgb, var(--ink) 16%, transparent);
+      --moon: #e6b85f;
+      --seal: #d97b5c;
+      --trace: color-mix(in srgb, var(--ink) 7%, transparent);
+      --trace-blend: screen;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #17151f;
+    --ground-2: #1e1b28;
+    --panel: #1c1926;
+    --ink: #ede7da;
+    --ink-soft: #9a93a6;
+    --hair: color-mix(in srgb, var(--ink) 16%, transparent);
+    --moon: #e6b85f;
+    --seal: #d97b5c;
+    --trace: color-mix(in srgb, var(--ink) 7%, transparent);
+    --trace-blend: screen;
+  }
+
+  /* ---------- base ---------- */
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background-color: var(--ground);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch' result='t'/%3E%3CfeColorMatrix in='t' type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    color: var(--ink);
+    font-family: var(--f-body);
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+
+  a {
+    color: var(--seal);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    text-decoration-color: color-mix(in srgb, var(--seal) 45%, transparent);
+    transition: color .15s ease, text-decoration-color .15s ease;
+  }
+  a:hover { color: var(--ink); text-decoration-color: var(--moon); }
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  h1, h2, h3 { font-family: var(--f-display); font-weight: 500; text-wrap: balance; margin: 0; }
+  p { margin: 0; }
+
+  .skip {
+    position: absolute; left: -9999px; top: 0;
+    background: var(--panel); color: var(--ink);
+    padding: .6rem 1rem; z-index: 20; border: 1px solid var(--hair);
+  }
+  .skip:focus { left: 1rem; top: 1rem; }
+
+  .band { width: 100%; max-width: var(--page); margin-inline: auto; padding-inline: clamp(1.15rem, 5vw, 2.5rem); }
+
+  /* ---------- header ---------- */
+  .masthead {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding-top: 1.4rem; padding-bottom: 1.4rem;
+  }
+  .wordmark {
+    font-family: var(--f-display); font-size: 1.05rem; font-weight: 500;
+    letter-spacing: .02em; color: var(--ink); text-decoration: none;
+  }
+  .wordmark:hover { color: var(--ink); }
+  .tt {
+    background: none; border: 1px solid var(--hair); color: var(--ink-soft);
+    width: 2rem; height: 2rem; border-radius: 50%; cursor: pointer;
+    font-size: .95rem; line-height: 1; display: grid; place-items: center;
+  }
+  .tt:hover { color: var(--ink); border-color: var(--ink-soft); }
+
+  /* ---------- hero ---------- */
+  .hero { position: relative; overflow: hidden; isolation: isolate; padding-block: clamp(2.5rem, 8vw, 5.5rem); }
+  .moonrise {
+    position: absolute; z-index: 0; top: -3.5rem; right: -3.5rem;
+    width: clamp(11rem, 30vw, 19rem); aspect-ratio: 1; border-radius: 50%;
+    background: radial-gradient(circle at 37% 37%,
+        color-mix(in srgb, var(--moon) 90%, #fff),
+        var(--moon) 55%,
+        color-mix(in srgb, var(--moon) 62%, var(--ground)) 100%);
+    box-shadow: 0 0 6rem .5rem color-mix(in srgb, var(--moon) 26%, transparent);
+  }
+  .hero-in { position: relative; z-index: 1; max-width: 35rem; }
+  .eyebrow {
+    font-family: var(--f-mono); font-size: .72rem; letter-spacing: .16em;
+    text-transform: uppercase; color: var(--ink-soft); margin: 0 0 1.1rem;
+  }
+  .hero-name {
+    font-size: clamp(2.7rem, 8vw, 4.6rem); line-height: 1.02;
+    letter-spacing: -.015em; margin: 0 0 1.3rem;
+  }
+  .lead {
+    font-family: var(--f-display); font-size: clamp(1.16rem, 2.4vw, 1.42rem);
+    line-height: 1.5; color: var(--ink); max-width: 33rem;
+  }
+  .lead + .lead { margin-top: 1rem; color: var(--ink-soft); font-size: clamp(1.05rem, 2vw, 1.2rem); }
+  .note { font-family: var(--f-hand); font-size: 1.15rem; color: var(--seal); line-height: 1.3; margin-top: 1.4rem; }
+  .now {
+    margin-top: 2rem; font-size: .95rem; color: var(--ink-soft);
+    max-width: 33rem; display: flex; gap: .7rem; align-items: baseline; flex-wrap: wrap;
+  }
+  .now-k {
+    font-family: var(--f-mono); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase;
+    color: color-mix(in srgb, var(--moon) 75%, var(--ink) 25%); border: 1px solid color-mix(in srgb, var(--moon) 45%, transparent);
+    padding: .12rem .5rem; border-radius: 2px; white-space: nowrap;
+  }
+
+  /* ---------- doors ---------- */
+  .doors-wrap { padding-block: clamp(1.5rem, 4vw, 2.5rem); }
+  .doors-k {
+    font-family: var(--f-mono); font-size: .72rem; letter-spacing: .16em;
+    text-transform: uppercase; color: var(--ink-soft); margin-bottom: 1rem;
+  }
+  .doors {
+    display: grid; grid-template-columns: 1fr 1fr;
+    border: 1px solid var(--hair); border-radius: 4px; overflow: hidden;
+  }
+  .door {
+    display: flex; flex-direction: column; gap: .45rem;
+    padding: 1.4rem clamp(1.1rem, 3vw, 1.8rem);
+    text-decoration: none; color: var(--ink); background: var(--panel);
+    transition: background .15s ease;
+  }
+  .door + .door { border-left: 1px solid var(--hair); }
+  .door:hover { background: var(--ground-2); color: var(--ink); }
+  .door-t { font-family: var(--f-display); font-size: 1.4rem; }
+  .door-d { font-size: .92rem; color: var(--ink-soft); line-height: 1.5; }
+  .door-go { font-family: var(--f-mono); font-size: .7rem; letter-spacing: .12em; color: var(--seal); text-transform: uppercase; }
+
+  /* ---------- creed ---------- */
+  .creed-wrap { padding-block: clamp(2.4rem, 6vw, 4rem); border-top: 1px solid var(--hair); }
+  .creed-k {
+    font-family: var(--f-mono); font-size: .72rem; letter-spacing: .16em;
+    text-transform: uppercase; color: var(--ink-soft); margin-bottom: 1.1rem;
+  }
+  .creed {
+    font-family: var(--f-display); font-size: clamp(1.2rem, 2.6vw, 1.6rem);
+    line-height: 1.5; max-width: 46rem; color: var(--ink);
+  }
+  .creed b { font-weight: 600; color: var(--ink); background: color-mix(in srgb, var(--moon) 22%, transparent); padding: 0 .12em; }
+  .creed .cite { display: block; margin-top: 1rem; font-size: .95rem; color: var(--ink-soft); font-style: italic; }
+
+  /* ---------- section frame ---------- */
+  .section {
+    position: relative; overflow: hidden;
+    display: grid; grid-template-columns: 7.5rem 1fr; gap: 2.4rem;
+    padding-block: clamp(3.2rem, 8vw, 6rem);
+    border-top: 1px solid var(--hair);
+  }
+  .trace {
+    position: absolute; right: -.08em; bottom: -.16em; z-index: 0;
+    font-family: var(--f-display); font-weight: 600;
+    font-size: clamp(5rem, 20vw, 11rem); line-height: 1;
+    color: var(--trace); mix-blend-mode: var(--trace-blend);
+    pointer-events: none; user-select: none; letter-spacing: -.02em;
+  }
+  .rail { position: relative; z-index: 1; display: flex; flex-direction: column; gap: .55rem; }
+  .rail-label {
+    font-family: var(--f-mono); font-size: .72rem; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--ink-soft);
+  }
+  .rail-char { font-family: var(--f-display); font-size: 1.5rem; color: var(--ink-soft); line-height: 1; }
+  .rail .note { margin-top: .3rem; font-size: 1.05rem; }
+  .moon { width: 1.45rem; height: 1.45rem; display: block; }
+
+  .content { position: relative; z-index: 1; max-width: var(--content); min-width: 0; }
+  .section h2 { font-size: clamp(1.7rem, 4vw, 2.35rem); line-height: 1.1; margin-bottom: 1.1rem; }
+  .prose { max-width: var(--measure); }
+  .prose p + p { margin-top: 1rem; }
+  .prose--soft { color: var(--ink-soft); }
+
+  .subhead {
+    font-family: var(--f-mono); font-size: .72rem; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--ink-soft); margin: 2.6rem 0 1.1rem;
+  }
+  .subhead:first-of-type { margin-top: 2rem; }
+
+  /* ---------- entries ---------- */
+  .entry { padding: 1.3rem 0; border-top: 1px solid var(--hair); max-width: var(--measure); }
+  .entry:first-of-type { border-top: none; padding-top: .4rem; }
+  .entry-meta {
+    font-family: var(--f-mono); font-size: .7rem; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--ink-soft); margin-bottom: .5rem;
+  }
+  .entry h3 { font-size: 1.22rem; margin-bottom: .35rem; }
+  .entry p { font-size: .96rem; color: var(--ink-soft); }
+  .links { margin-top: .6rem; font-family: var(--f-mono); font-size: .78rem; letter-spacing: .02em; }
+  .links a { color: var(--seal); }
+  .links .sep { color: var(--hair); margin: 0 .5rem; }
+  .links .muted { color: var(--ink-soft); }
+  .also {
+    max-width: var(--measure); margin-top: 1.4rem; font-size: .92rem; color: var(--ink-soft);
+    padding-top: 1rem; border-top: 1px solid var(--hair);
+  }
+  .also b { color: var(--ink); font-weight: 600; font-family: var(--f-display); }
+
+  /* ---------- project cards ---------- */
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 1rem; margin-top: 1rem; }
+  .card {
+    background: var(--ground-2); border: 1px solid var(--hair); border-radius: 4px;
+    padding: 1.15rem 1.25rem; display: flex; flex-direction: column; gap: .4rem;
+  }
+  .card h3 { font-size: 1.1rem; }
+  .card p { font-size: .9rem; color: var(--ink-soft); flex: 1; }
+  .card .links { margin-top: .3rem; }
+  .card--soon { border-style: dashed; background: transparent; }
+  .card--soon p { color: var(--ink-soft); }
+
+  /* ---------- photo slideshow ---------- */
+  .slideshow { max-width: 26rem; margin-top: 1rem; }
+  .slide-stage {
+    display: block; width: 100%; padding: 0; margin: 0;
+    border: 1px solid var(--hair); border-radius: 4px; overflow: hidden;
+    background: var(--ground-2); cursor: pointer;
+  }
+  .slide-stage img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; }
+  .slide-bar { display: flex; align-items: center; gap: .8rem; margin-top: .7rem; }
+  .slide-btn {
+    background: none; border: 1px solid var(--hair); color: var(--ink-soft);
+    width: 1.9rem; height: 1.9rem; border-radius: 50%; cursor: pointer;
+    font-size: 1.1rem; line-height: 1; display: grid; place-items: center; flex: 0 0 auto;
+  }
+  .slide-btn:hover { color: var(--ink); border-color: var(--ink-soft); }
+  .slide-cap { font-family: var(--f-mono); font-size: .78rem; color: var(--ink-soft); line-height: 1.5; flex: 1; }
+  .slide-count { font-family: var(--f-mono); font-size: .68rem; color: var(--ink-soft); opacity: .7; margin-top: .4rem; }
+
+  /* ---------- quote / snippets ---------- */
+  .quote { margin: 1.6rem 0 0; padding-left: 1.3rem; border-left: 2px solid var(--moon); max-width: var(--measure); }
+  .quote p {
+    font-family: var(--f-display); font-style: italic; font-size: clamp(1.15rem, 2.4vw, 1.42rem);
+    line-height: 1.5; color: var(--ink);
+  }
+  .quote p + p { margin-top: .7rem; }
+  .quote cite { display: block; margin-top: .8rem; font-family: var(--f-mono); font-size: .72rem;
+    letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); font-style: normal; }
+
+  .snips { max-width: var(--measure); display: flex; flex-direction: column; gap: 1.4rem; margin-top: 1rem; }
+  .snip p {
+    font-family: var(--f-display); font-style: italic; font-size: 1.12rem; line-height: 1.55; color: var(--ink);
+  }
+  .snip span {
+    display: block; margin-top: .4rem; font-family: var(--f-mono); font-size: .7rem;
+    letter-spacing: .06em; text-transform: uppercase; color: var(--ink-soft);
+  }
+
+  /* ---------- essays (longer pieces) ---------- */
+  .essays { max-width: var(--measure); margin-top: 1rem; }
+  .essay { border-top: 1px solid var(--hair); }
+  .essay:first-of-type { border-top: none; }
+  .essay summary {
+    cursor: pointer; list-style: none; padding: 1.1rem 0;
+    display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem;
+  }
+  .essay summary::-webkit-details-marker { display: none; }
+  .essay summary::marker { content: ""; }
+  .essay-head { flex: 1; min-width: 0; }
+  .essay-title { display: block; font-family: var(--f-display); font-size: 1.15rem; color: var(--ink); margin-bottom: .3rem; }
+  .essay-head .teaser { display: block; font-size: .9rem; color: var(--ink-soft); }
+  .essay-mark {
+    font-family: var(--f-display); font-size: 1.3rem; color: var(--seal);
+    transition: transform .15s ease; flex: 0 0 auto; line-height: 1;
+  }
+  .essay[open] .essay-mark { transform: rotate(90deg); }
+  .essay-body { padding: 0 0 1.5rem; max-width: 38rem; }
+  .essay-body p { font-family: var(--f-display); font-size: 1.03rem; line-height: 1.7; color: var(--ink); }
+  .essay-body p + p { margin-top: .9rem; }
+
+  /* ---------- section-close quote ---------- */
+  .close-quote {
+    max-width: var(--measure); margin-top: 2.2rem; padding-top: 1.3rem;
+    border-top: 1px solid var(--hair); font-family: var(--f-display); font-style: italic;
+    font-size: 1.05rem; line-height: 1.55; color: var(--ink-soft);
+  }
+  .close-quote span {
+    display: block; margin-top: .5rem; font-family: var(--f-mono); font-style: normal;
+    font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft);
+  }
+
+  /* ---------- contact ---------- */
+  .rows { max-width: var(--measure); margin-top: .5rem; }
+  .row {
+    display: flex; gap: 1rem; align-items: baseline; padding: .85rem 0;
+    border-top: 1px solid var(--hair);
+  }
+  .row:first-child { border-top: none; }
+  .row-k {
+    font-family: var(--f-mono); font-size: .72rem; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--ink-soft); flex: 0 0 6.5rem;
+  }
+  .row-v { font-size: .98rem; flex: 1; min-width: 0; }
+  .pipe { color: var(--ink-soft); opacity: .5; margin: 0 .5rem; }
+  .colophon {
+    margin-top: 2.6rem; padding-top: 1.6rem; border-top: 1px solid var(--hair);
+    max-width: var(--measure); color: var(--ink-soft); font-size: .95rem;
+  }
+  .colophon b { color: var(--ink); font-weight: 600; }
+
+  footer.band { padding-block: 2.6rem; color: var(--ink-soft); font-family: var(--f-mono); font-size: .72rem; letter-spacing: .06em; }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 800px) {
+    .section { grid-template-columns: 1fr; gap: 1rem; }
+    .rail { flex-direction: row; align-items: center; flex-wrap: wrap; gap: .6rem .8rem; }
+    .rail .note { flex-basis: 100%; margin-top: 0; }
+    .doors { grid-template-columns: 1fr; }
+    .door + .door { border-left: none; border-top: 1px solid var(--hair); }
+    .moonrise { opacity: .4; }
+    .row { flex-direction: column; gap: .15rem; }
+    .row-k { flex-basis: auto; }
+  }
+</style>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="band masthead">
+  <a class="wordmark" href="#main">Cathy&nbsp;Sheng</a>
+  <button class="tt" id="tt" type="button" aria-label="Toggle dark mode">&#9790;</button>
+</header>
+
+<main id="main">
+  <section class="band hero" aria-labelledby="h-name">
+    <div class="moonrise" aria-hidden="true"></div>
+    <div class="hero-in">
+      <p class="eyebrow">Berkeley, CA</p>
+      <h1 class="hero-name" id="h-name">Cathy Sheng</h1>
+      <p class="lead">I&rsquo;m interested in people, intelligent machines, language, good stories, unexpected conversations, and seeing as much of the world as I can.</p>
+      <p class="now"><span class="now-k">Now</span> Fall 2026, on an IBM co-op in North Carolina, back at Berkeley after. Open to Summer&nbsp;2027 roles in robotics, embodied AI, and AI safety.</p>
+    </div>
+  </section>
+
+  <section class="band doors-wrap" aria-label="Two ways into this site">
+    <p class="doors-k">Two ways in:</p>
+    <nav class="doors">
+      <a class="door" href="#work">
+        <span class="door-t">Work</span>
+      </a>
+      <a class="door" href="#life">
+        <span class="door-t">Life</span>
+      </a>
+    </nav>
+  </section>
+
+  <section class="band creed-wrap" aria-labelledby="h-creed">
+    <p class="creed-k" id="h-creed">What I&rsquo;m working toward</p>
+    <p class="creed">
+      fascinated with human learning the most complex machinery that raised society and drove innovation. interested replicating it in robotics learning.
+    </p>
+    <p class="creed" style="margin-top:1rem;font-size:1rem;color:var(--ink-soft);max-width:42rem;">
+      want to work hard to never wonder at failed potential, experience everything fully wildly vividly, but also to appreciate the slow moments live life romantically, to collect the infinite, beautiful stories and voices of the people in this world, cherish the people who matter most, give back to my family, drive impact, to always strive to be a better person never be stagnant, and regardless of anything maintain my values, character, mindset to keep trying, learning, loving, living, and hoping.
+    </p>
+  </section>
+
+  <div class="band">
+
+    <div id="page-work">
+    <section class="section" id="work" aria-labelledby="h-work">
+      <span class="trace" aria-hidden="true">build</span>
+      <div class="rail">
+        <svg class="moon" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="14" fill="var(--moon)"/><circle cx="6" cy="20" r="14" fill="var(--ground)"/></svg>
+        <span class="rail-label">The&nbsp;work</span>
+      </div>
+      <div class="content">
+        <h2 id="h-work">Research &amp; building</h2>
+
+        <p class="subhead">Education</p>
+        <div class="entry">
+          <p class="entry-meta">B.S. Electrical Engineering &amp; Computer Sciences &middot; Expected May 2028</p>
+          <h3>UC Berkeley</h3>
+          <p>Coursework: computer architecture (Machine Structures), data structures &amp; algorithms, data science, discrete math &amp; probability, SICP, information systems design.</p>
+        </div>
+
+        <p class="subhead">Work experience</p>
+        <div class="entry">
+          <p class="entry-meta">IBM &middot; Software Developer Intern &middot; Durham, NC &middot; Aug&ndash;Dec 2026</p>
+          <h3>watsonx Orchestrate</h3>
+          <p>One of twelve interns on the watsonx Orchestrate team, building AI agents and multi-agent workflows. Built a benchmark comparing IBM Granite LoRA, GPT-OSS-120B, and a keyword baseline for the RAG tool&rsquo;s citation generation, across precision, recall, and latency &mdash; and got the local eval pipeline from crash-on-run to a stable 65s/example after chasing down PyTorch instability, GPU driver bugs, and memory leaks.</p>
+        </div>
+
+        <p class="subhead">Papers</p>
+        <div class="entry">
+          <p class="entry-meta">IEEE MIT URTC 2024 &middot; Stanford Compression Forum</p>
+          <h3>Doctor Who?: The Influence of AI on Human Responses to Vaccine Calls</h3>
+          <p>Survey research on how trust in a voice shifts once people are told it&rsquo;s AI &mdash; and how gender factors in. From the STEM-to-SHTEM internship.</p>
+          <p class="links"><a href="https://compression.stanford.edu/sites/g/files/sbiybj26591/files/media/file/final-report.pdf">Full report (PDF)</a></p>
+        </div>
+        <div class="entry">
+          <p class="entry-meta">Accepted &mdash; IEEE TENCON 2022 (Region 10)</p>
+          <h3>A Novel Alzheimer&rsquo;s Disease Early Diagnosis &amp; Treatment Consultation System</h3>
+          <p>An ensembled deep-learning model with majority voting for early diagnosis and treatment consultation.</p>
+          <p class="links"><span class="muted">Proceedings, IEEE Region 10 Conference</span></p>
+        </div>
+        <p class="subhead">Labs &amp; teams</p>
+        <div class="entry">
+          <p class="entry-meta">Berkeley AI Research (BAIR) &middot; Speech Group</p>
+          <h3>Speech emotion recognition &rarr; articulatory speech synthesis</h3>
+          <p>Wrote the SER evaluation work, then pivoted to articulatory synthesis (syllable-level embeddings), where I&rsquo;m now a project co-lead.</p>
+          <p style="font-family:var(--f-display);font-style:italic;font-size:.95rem;color:var(--ink-soft);margin-top:.6rem;">&ldquo;Certain words spoken in particular patterns, at certain pitches, regularities, frequencies, and enunciation can reveal volumes about a person&rsquo;s views, attitude, and emotion&hellip; Similar to deepfake which steals faces, voice cloning steals voices&hellip; I hope to pursue this research ethically, responsibly, and equitably.&rdquo;</p>
+          <p class="links"><a href="https://github.com/AyushG225/articulatory-speech">Articulatory (GitHub)</a><span class="sep">/</span><a href="https://github.com/robbizorg/ser-pcs">SER (GitHub)</a></p>
+        </div>
+        <div class="entry">
+          <p class="entry-meta">Lawrence Berkeley National Lab &middot; SEED &middot; Summer 2025</p>
+          <h3>Physics-informed CNNs at the Advanced Light Source</h3>
+          <p>PyTorch CNN pipelines to reconstruct polymer scattering geometry, with configurable preprocessing, evaluation, and hyperparameter tuning across 10,521 samples with 481-dimensional outputs. Presented at the SEED research symposium.</p>
+          <p class="links"><a href="https://github.com/i02132002/cfet-ml">GitHub</a><span class="sep">/</span><span class="muted">Poster &amp; report, SEED 2025</span></p>
+        </div>
+        <div class="entry">
+          <p class="entry-meta">AI4ALL Ignite Accelerator</p>
+          <h3>H&amp;M fashion recommender</h3>
+          <p>An LSTM system that recommends clothing from a shopper&rsquo;s last seven days of purchases.</p>
+          <p class="links"><a href="https://github.com/amaccodes/hm-fashion-recommender">GitHub</a></p>
+        </div>
+        <div class="entry">
+          <p class="entry-meta">Society of Women Engineers &middot; Projects Lead &middot; Petoi</p>
+          <h3>Bionic robot dog</h3>
+          <p>Training a quadruped to recognize an object, walk to it, and pick it up, plus a speech interface to command it. I lead the speech and hardware side.</p>
+          <p class="links"><a href="https://github.com/jessieewoo/swe-petoi">GitHub</a></p>
+        </div>
+        <p class="subhead">Cultural preservation</p>
+        <div class="entry">
+          <p class="entry-meta">Chinese Historical Society of America</p>
+          <h3>LiDAR for Chinatown &amp; Chinese American heritage</h3>
+          <p>Scanning historic Chinese American buildings with LiDAR to preserve them digitally before they&rsquo;re lost.</p>
+        </div>
+        <div class="entry">
+          <p class="entry-meta">Independent</p>
+          <h3>An archive for an endangered dialect</h3>
+          <p>A website to record and memorialize an endangered Chinese dialect, started after watching my dad&rsquo;s hometown trade its own tongue for Mandarin and English. More on that in <a href="#linguicide">Linguicide</a>.</p>
+        </div>
+
+        <p class="subhead">Teaching</p>
+        <p class="prose prose--soft" style="max-width:var(--measure);">Mentorship is the most personal form education takes. I tutor <strong>CS 70</strong> as an academic student employee for Berkeley EECS, mentor for <strong>CS 61B</strong> through CSM, and came up through the CS / Data Scholars communities.</p>
+        <blockquote class="quote">
+          <p>Piled onto one chair &mdash; evidently a human was made for a better chair &mdash; I guided my brothers from their first steps in arithmetic to their first watercolor brushstrokes. I found pleasure in teaching; in turn, they taught me the beauty of giving, child-like curiosity, and patience.</p>
+          <cite>&mdash; on teaching my brothers</cite>
+        </blockquote>
+
+        <p class="subhead">Built at hackathons</p>
+        <div class="cards">
+          <div class="card">
+            <h3>Snap2Save</h3>
+            <p>2D-to-3D reconstruction with routing &mdash; turning a photo into navigable space.</p>
+            <p class="links"><a href="https://devpost.com/software/snap2save">Devpost</a><span class="sep">/</span><a href="https://github.com/danielcoblentz/Snap2Save/tree/main">GitHub</a></p>
+          </div>
+          <div class="card">
+            <h3>Eye Witness</h3>
+            <p>An on-chain photo registry with an escrow vault for verified eyewitness media.</p>
+            <p class="links"><a href="https://dorahacks.io/buidl/43264/">DoraHacks</a><span class="sep">/</span><a href="https://github.com/NithyaAppannagaari/eye-witness/tree/main/contracts/contracts">Contracts</a></p>
+          </div>
+          <div class="card">
+            <h3>Proof of Work</h3>
+            <p>A shared group wallet that settles personal challenges on-chain. 2nd place, BabHacks (Ripple track).</p>
+            <p class="links"><a href="https://devpost.com/software/1223281">Devpost</a><span class="sep">/</span><a href="https://github.com/olivli14/group-wallet">GitHub</a></p>
+          </div>
+          <div class="card">
+            <h3>afterlight</h3>
+            <p>QuoteLedger &mdash; an on-chain wall of graduation quotes, kept for the afterlight.</p>
+            <p class="links"><a href="https://afterlightquoteledger.vercel.app/">Live site</a><span class="sep">/</span><a href="https://github.com/cathysheng06/afterlight-QuoteLedger">GitHub</a></p>
+          </div>
+        </div>
+
+        <p class="close-quote">&ldquo;Technology was not made inherently good or bad. The thin line between servicing good and rendering destruction lies solely in the intentions of whoever wields it.&rdquo;<span>on facial recognition, from Ethics Bowl</span></p>
+      </div>
+    </section>
+    </div>
+
+    <div id="page-life" hidden>
+    <section class="section" id="writing" aria-labelledby="h-writing">
+      <span class="trace" aria-hidden="true">&#24076;&#26395;</span>
+      <div class="rail">
+        <svg class="moon" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="14" fill="var(--moon)"/><circle cx="-4" cy="20" r="14" fill="var(--ground)"/></svg>
+        <span class="rail-label">Writing</span>
+        <span class="rail-char">&#24076;</span>
+        <p class="note">for my parents.</p>
+      </div>
+      <div class="content">
+        <h2 id="h-writing">I write about things I don&rsquo;t understand yet</h2>
+        <div class="prose">
+          <p class="prose--soft">Girls Write Now mentee &mdash; published in three anthologies, with work in <em>Harper&rsquo;s</em> and with HarperOne / Penguin. Staff editor at <em>Berkeley Poetry Review</em>. A writing juror for the national adjudication of the Scholastic Art &amp; Writing Awards. Alum of the School of The New York Times and the Iowa Young Writers&rsquo; Studio.</p>
+        </div>
+
+        <p class="subhead">Featured: Girls Write Now</p>
+        <h3 style="font-family:var(--f-display);font-size:1.3rem;">Arcade of Hope</h3>
+        <p class="prose prose--soft" style="margin-top:.5rem;">Written after a trip back to Virginia, walking past the house I was born in seventeen years earlier, when my parents had just arrived in America. A piece about my father, an immigrant&rsquo;s dream, and the coins he counted instead of days.</p>
+        <blockquote class="quote">
+          <p>People counted passing dates and changing seasons; my father counted coins. At night, he would kiss each one with his heart&rsquo;s bitterest yearnings before dropping his coin-sized wishes into a makeshift piggybank of crumpled plastic. Lit by the moon, the coins glowed like river stones &mdash; like hope.</p>
+          <p>I was named &#24742;. My name sounding just like the word for moon.</p>
+          <cite>&mdash; Arcade of Hope</cite>
+        </blockquote>
+        <p class="links"><a href="https://girlswritenow.org">Read the full piece at Girls Write Now</a></p>
+
+        <p class="subhead">Longer pieces</p>
+        <div class="essays">
+          <details class="essay">
+            <summary>
+              <span class="essay-head">
+                <span class="essay-title">My First Language</span>
+                <span class="teaser">On leaving China, and learning to trust an unpredictable world through math.</span>
+              </span>
+              <span class="essay-mark" aria-hidden="true">&rsaquo;</span>
+            </summary>
+            <div class="essay-body">
+              <p>P(A|B) = (P(B|A) &times; P(A)) / P(B)</p>
+              <p>Written in the language of logic, Bayes&rsquo; theorem is a conditional probability axiom that imitates the scientific method, showing us how to update our beliefs based on new evidence. Applied to the bigger canvas of life, it illustrates how we navigate challenges by changing our perspective in light of new information.</p>
+              <p>Coming to the US from China, I grieved my old home and struggled to adapt. This transcontinental move was my first B factor. Faced with new information, I could remain stagnant or make the best of the change, so I turned towards math &mdash; learning to count by gazing at the sky&rsquo;s infinite sprawl of stars, arithmetic through Chinese card games with my grandma, the Fibonacci by the intricate branching of autumn leaves, the golden ratio by the ocean&rsquo;s cerulean curve.</p>
+              <p>Before I learned English, my first language was math. Numbers were my alphabet, the syntax of logic my grammar, its breathtaking proofs my literature. Mathematical certainty was an innate language I spoke fluently without ridicule for my accent, its world of enigmatic Vieta&rsquo;s theorem and frustrating Fermat&rsquo;s theorem a laboratory for my endless curiosity. As I dream, tinker, innovate, revere, question, excavate and experiment, I never tire of its mazes, hidden treasures, thrills, and discoveries.</p>
+              <p>As put in <em>The Elegant Universe</em>, &ldquo;The boldness of asking deep questions may require unforeseen flexibility if we are to accept the answers.&rdquo;</p>
+              <p>I will continue to not only ask but audaciously seek life&rsquo;s deepest questions. I&rsquo;ll strive to evolve into a better mathematician, student, and person, growing in coexistence with life&rsquo;s unpredictable B variables, embracing change with Bayes Theorem. I hope to carry my love for math through college &mdash; and who knows, recruit more people into the Bayesian cult.</p>
+            </div>
+          </details>
+          <details class="essay" id="linguicide">
+            <summary>
+              <span class="essay-head">
+                <span class="essay-title">Linguicide</span>
+                <span class="teaser">On my father&rsquo;s hometown, and what a language loses when it dies.</span>
+              </span>
+              <span class="essay-mark" aria-hidden="true">&rsaquo;</span>
+            </summary>
+            <div class="essay-body">
+              <p>Pandas. Dim sum. Great Wall. Those are the most common, striking images conjured when one thinks about China off of the mainstream. When asked to name a language spoken in China they quip back, Mandarin. When asked to name a city that captures the cultural essence of China, most would chirp within a heartbeat, Beijing, Shanghai, or if they were feeling adventurous, Xi&rsquo;an. But few, if any, would even spare a fleeting breath on the smaller cities on the outskirts of these global players who capture the world&rsquo;s attention on the social, political, economic market and dominate the image of China in popular media.</p>
+              <p>Those were my thoughts, standing in the crumbling doorway of my grandma&rsquo;s house for winter break, an unsettling feeling in my stomach and low expectations of Duqiao, Zhejiang, a small, farming city nestled by piercing green mountains, cradled by the Qiantang river. It&rsquo;s a city where if you were to trek from one end to the other, you can knock on every random door along the way and fall into easy conversation &mdash; either as an acquaintance, or acquaintance of an acquaintance, or if you&rsquo;re blood (even if you&rsquo;re the cousin of who knows how many removed) you&rsquo;re staying, no buts or maybes, for dinner, gossip, and card games. Half of the people living there are in their late sixties to eighties, spending retirement days idly tending overgrown rows of potatoes, tomatoes, cabbage, bok choy, chives, under the lazy sun and generous Zhejiang rains, and the evenings raising the occasional fist at a TV screen &mdash; not out of the pressure of scraping yuan to put food on the table, but out of decades-old habit.</p>
+              <p>Others are second or third generation, easily distinguishable by their faces powdered with blush, branded bags, and unsoiled hands that never worked to tease life out of dirt &mdash; desperately trying to widen the distance between the roots that made them and find a way out of the city, to scrub free the dirt of their poor hometown. While natives made up most of the demographic, some had moved from neighboring towns, smelling the entrepreneurial scent of this small farming town&rsquo;s transformation into an industrial city, too poor themselves to move straight to Shanghai.</p>
+              <p>In the span of a few decades, the mom-and-pop restaurants that sold a colorful array of cultural treats born right on that soil were being replaced by newer stores, sometimes wiping out two or three family restaurants at once. Electrically-powered storefronts stank of pride, modernness, and superiority, their polished doors gliding noiselessly as customers filed into sterile, air-conditioned rooms to eat under a multi-colored TV opera show. As money lined new pockets, the elderly couple next door were closing down, boxes stacked in front, no longer selling the hometown special &mdash; Duqiao ginger, clam noodles. When I asked about the shutdown, a sharp pang echoing in my heart, they only shared a long, forlorn look that spoke of volumes of history about to end. A long street was entirely swapped out for Western brands &mdash; McDonald&rsquo;s, a local favorite, and KFC, frequented by whining toddlers and placating parents. Eventually, as the pressures of living forced their hand, some would reluctantly dismiss their cultural comfort food for more popular dishes &mdash; one store, one trend at a time &mdash; until these specialties no longer held the same fond warmth and meaning in people&rsquo;s lives. These mom-and-pop stores float barely on the surface, kept alive by the older generation&rsquo;s loyalty, many already shoved out by new Western brands and the tide of modernization.</p>
+              <p>When my dad peered wistfully at the schoolchildren jabbering in Mandarin outside his old elementary school, he told me how they used to teach the local tongue here, with its own swirling accent &mdash; the language that held the history and culture of this little but vibrant town. Now Mandarin was the norm; the local tongue was carried on only by relatives, and even they were reluctant to pass it further, their own children more enticed by the romance of Western languages, faces twisting sourly at the idea of devoting time to a dialect whose speakers don&rsquo;t amount to even a single percent of the population. Traditions like climbing the hilltop each year to honor our ancestors with rice, wine, and flowers were ground into oblivion by the busyness of modern life; waking at dawn to light incense and set out a feast of auspicious foods became more inconvenience than devotion, its sentimental value slowly forgotten. Meanwhile Christmas meals and Halloween costumes, deemed cool and trendy, were on the rise among more and more kids in the neighborhood.</p>
+              <p>My dad told me all this, his face a mesh of feelings warring against each other, as we strolled through his old town, his childhood home. We walked past the landmarks of his childhood, old memories surfacing through years of dust, and bone-deep losses that chill to the core upon realizing they are now a remnant of the past in a changing present. The stream that held so many beautiful memories of languid summer evenings for my father now ran black. The candy shop run by an old woman blind in one eye, who always slipped my dad an extra piece, had been shut down for a booming arcade business.</p>
+              <p>Duqiao is a place of ironies, of different time zones and segments of old and new generations mashed together yet somehow running in parallel, conflicted in its dichotomous culture, current life built on the faded rubble of the older generation, its trajectory driven forward by Western trends and media definitions of the norm and the cool. Where pizza is served in blue and red boxes next to roasted chestnuts, where tech-obsessed teenagers&rsquo; faces are illuminated by dancing figures on TikTok beside elderly people with their foreheads pressed reverently to their palms in prayer. In this catapulting era, space is limited and the need to survive takes precedence: if old traditions don&rsquo;t churn out profit, the town&rsquo;s landscape morphs to fit the new trend, because it is simply unrealistic to stay frozen in the past in a constantly shifting world. It makes a kind of logical sense &mdash; corporations and institutions of power function on globally recognized languages, on Western languages, especially English, and on popular languages like Mandarin. It&rsquo;s the language of business and politics, of wealth and open doors, of mainstream and media; keeping in touch with an &ldquo;insignificant&rdquo; culture gets deprioritized, as learning the bigger languages becomes a necessity.</p>
+              <p>But this exact scene is unfolding in the serenity of any arbitrary sleepy town, in every pocket of the world &mdash; Malaysia, Pakistan, Israel. Industrialization is inevitable, but in what direction, following what trends? An estimated 14,000 languages will be extinguished by the end of the century &mdash; roughly 14 languages a day whose syllables will never be uttered again, whose culture&rsquo;s rituals can never again be carried out in their sacred tongue, the tie to their traditions and ancestors severed for good. This is linguicide.</p>
+              <p>Westernization and linguicide are different from industrialization, which is exacerbated by media trends &mdash; it&rsquo;s seeing entire streets wiped out, family businesses shut down, once-fondness and reverence turned into disgust for one&rsquo;s own identity, centuries-old traditions fading to black in favor of other cultures. It&rsquo;s witnessing the dying of your own culture. Entire centuries are being wiped into an oblivious smudge as languages continuously disappear from the face of the Earth &mdash; the Cherokee tribe from North Carolina, the Judezmo language spoken in Serbia and Morocco, the Rapa language of French Polynesia. Some are already extinct.</p>
+              <p>Languages are sacred; they are the vehicle for immersing in a culture. Losing them means far more than losing a set of an alphabet &mdash; it means losing an entire realm of tribal music and art, of fireside myths and superstitions, of an ancient religion and rich culture, of an essential, beautiful voice in our global community, lost forever. The majority of these are minority languages, spoken in countries of color, whose people are the ones absorbing the blow &mdash; forced to learn the language not of their blood and land, but of their oppressors.</p>
+              <p>The world of media falls easily into single-narrative labeling, for lack of representation and coverage of minority groups and ethnic cultures &mdash; overplaying the dominant voice until it becomes the &ldquo;norm,&rdquo; the mainstream, the trend, and everything else becomes eccentric by contrast. From the movies we watch, to the severe lack of representation in Hollywood, to the chaos of social media, these platforms feed into one another to create this disparity. In the sphere of power, we see the same game of politics played out &mdash; the same stories of oppression and trauma written into this soil.</p>
+              <p>While Westernization is a global trend, inspecting each country shows a gradual transition toward a culturally homogeneous society, as Indigenous and local languages are swept out in favor of a country&rsquo;s official language &mdash; the pressure to conform, and the need to thrive, too great. Smaller, minority, Indigenous, island, and local languages and cultures are continuously swallowed by more powerful languages of commerce and convenience, caught in a forever tug of war over shifting power. The 52 ethnic languages of China &mdash; the Uyghurs of Xinjiang, the Zhuang of Guangxi &mdash; will soon be sounds and songs of the past.</p>
+              <p>Media and art are beautiful tools: a global movie screen and a conversation space for seven billion people to share, inform, educate, inspire, and advocate about their different opinions, upbringings, and cultures. It&rsquo;s beautiful at its core. But we need to use that global sphere to bring in more minority voices, to introduce the world to the beautiful languages and cultures disappearing at the brink of extinction &mdash; to let people feel admiration and respect rather than cold aloofness, to give these languages another breath of life. The dying of language is directly linked to the dying of culture; media can be changed to incorporate more ethnically diverse content to inspire curiosity and broaden acceptance. But on the governmental level, policy needs to protect these endangered languages too &mdash; much like endangered species. These cultures and languages are vital to our global ecosystem.</p>
+              <p>The days trickle by, impossible to snatch back and savor slowly, like a drifting dandelion. Soon, in three days, I&rsquo;ll be leaving this small, but far from quiet, town full of stories and stories yet to be told. Now, when prompted to think about China, I think of evenings roasting sweet yams with my grandma as she told me of her childhood. I think of farmers from miles away pedaling bike rickshaws to sell produce still sprinkled with soil, freshly plucked. I think of steaming bowls of ginger, clam noodles my aunt sells in her store, smiling at me as she scoops extra clams with her chopsticks into mine. When urged to name a language, I think of the haggling voices, the beautiful opera singing, the musical language of Duqiao. When asked about a culture, I close my eyes, lost in the maudlin haze and emotion of memory, thinking about the winter break I took here that changed me fundamentally &mdash; my principles, and my thinking about all things big and small.</p>
+            </div>
+          </details>
+          <details class="essay">
+            <summary>
+              <span class="essay-head">
+                <span class="essay-title">The Empty Fort</span>
+                <span class="teaser">On Zhuge Liang, wit, and a bloodless battle.</span>
+              </span>
+              <span class="essay-mark" aria-hidden="true">&rsaquo;</span>
+            </summary>
+            <div class="essay-body">
+              <p>The spring wind swept its warm breath across the peaceful courtyard. The eerie notes of a lute, plucked from a practiced hand, crescendoed into the lifting wind. Commoners dressed in Taoist robes swept fallen leaves, completing the picture of tranquility.</p>
+              <p>Little could anyone know that the air stirred with unrest: the hooves of an approaching army, thousands strong, led by the formidable Sima Yi, descending like locusts on Xicheng. But seeing the idyll of the city wall, Sima Yi surveyed the scene with growing suspicion. He assumed it was a trick, that beneath this vigil lay a bloodbath of ambush and traps, so thoroughly laid that no defense was needed. Smug with his own cleverness, he turned and left the fortress unscathed, certain that anyone who dared enter was as good as dead.</p>
+              <p>The Empty Fort Strategy.</p>
+              <p>Zhuge Liang made a risky gamble, but his ultimate victory showed that in a game between wit and brute strength, wit wins.</p>
+              <p>On a personal level, I find his story compelling because in life, as in war, it&rsquo;s possible to overcome disadvantage by intelligently playing the cards you&rsquo;re dealt. Although in his position, I&rsquo;d most likely scream the living daylights out and burrow six feet under.</p>
+              <p>I&rsquo;d draw advice and inspiration from Zhuge Liang to confidently face challenges, remembering that with determination, wit can triumph against the odds, in life and international relations alike.</p>
+            </div>
+          </details>
+          <details class="essay">
+            <summary>
+              <span class="essay-head">
+                <span class="essay-title">The Birdbath</span>
+                <span class="teaser">On my mother, a stone bird, and the singer she almost became.</span>
+              </span>
+              <span class="essay-mark" aria-hidden="true">&rsaquo;</span>
+            </summary>
+            <div class="essay-body">
+              <p>In my old house there lived a ghost family. In the attic I found albums coated in dust, memories carved into the grooves of the walls &mdash; the leftover shape of someone else who&rsquo;d called this place home. But the strangest thing they left behind was a birdbath, carved of white stone, with a bird forever caught mid-flight.</p>
+              <p>You used to stare at it during the long hours we were at school, hustling around the kitchen &mdash; breakfast, lunch, dinner, clean, repeat, seven days a week, fifty-two weeks a year. Through the narrow window above the sink, that birdbath was your muse, the one thing you studied through years of loneliness and endless chores. I still wonder whether you saw yourself as the bird trapped in stone, or the one that flew away &mdash; away from home, away from the futures you could have had.</p>
+              <p>As the hours burned into sunset, you&rsquo;d slide a thin disc into the radio and let the old Chinese songs spill out, your voice rich as wine, dancing through the notes like it hadn&rsquo;t aged a day. But inevitably a cry, a question, a conversation would break it &mdash; and the dream in your eyes would fade, your soapy hands going still as the spell of the past let you go. You&rsquo;d touch a shaking hand to your cheek, remembering that you weren&rsquo;t a singer, that was a teenage girl&rsquo;s dream thirty years ago, that you were a mother now, raising four children far from home. Your eyes would turn to marble and you&rsquo;d attack the dishes with new force, scrubbing away the past along with the plates, the water splashing off in white foam, carrying with it the residue of a career and independence you never got to have.</p>
+              <p>The bird that got away and the bird that stayed were the same bird, I think. And still you hummed &mdash; notes of something flying free, notes of a dream that came true a different way.</p>
+              <p>&ldquo;You sing beautifully,&rdquo; I told you once, my voice cracking, the room blurring with tears. I laced my fingers through yours, tracing the winding lines of your palm, the wrinkles earned by endurance and strength.</p>
+              <p>Thank you, Mom.</p>
+            </div>
+          </details>
+        </div>
+
+        <p class="subhead">Silent Tears</p>
+        <p class="prose prose--soft" style="max-width:var(--measure);">An NLP research project on the AsianMasculinity subreddit &mdash; distant reading and word-association analysis, complemented by close reading, on how the community talks about mental health and the stoic-man, emotional-woman stereotype.</p>
+        <blockquote class="quote">
+          <p>&ldquo;One of the most highly associated words with &lsquo;weak&rsquo; is &lsquo;unmanly&rsquo; and &lsquo;unmasculine,&rsquo; showing how the AAPI gender norm ties masculinity to strength, and unmanliness to weakness.&rdquo;</p>
+          <cite>&mdash; Silent Tears</cite>
+        </blockquote>
+
+        <p class="subhead">Short writing</p>
+        <div class="essays">
+          <details class="essay">
+            <summary>
+              <span class="essay-head">
+                <span class="essay-title">The Human Chair</span>
+                <span class="teaser">On teaching my brothers.</span>
+              </span>
+              <span class="essay-mark" aria-hidden="true">&rsaquo;</span>
+            </summary>
+            <div class="essay-body">
+              <p>Piled onto one chair &mdash; evidently a human was made for a better chair &mdash; I guided my brothers from their first steps in arithmetic to their first watercolor brushstrokes. I found pleasure in teaching; in turn, they taught me the beauty of giving, child-like curiosity, and patience.</p>
+            </div>
+          </details>
+          <details class="essay">
+            <summary>
+              <span class="essay-head">
+                <span class="essay-title">Masks</span>
+                <span class="teaser">On the ones we all wear.</span>
+              </span>
+              <span class="essay-mark" aria-hidden="true">&rsaquo;</span>
+            </summary>
+            <div class="essay-body">
+              <p>We slip our masks on as seamlessly as water on skin, unconscious reactions to social settings, like reflexes.</p>
+            </div>
+          </details>
+          <details class="essay">
+            <summary>
+              <span class="essay-head">
+                <span class="essay-title">Xue-xi, Zhu-ren, You-yi</span>
+                <span class="teaser">On the three principles I keep circling back to.</span>
+              </span>
+              <span class="essay-mark" aria-hidden="true">&rsaquo;</span>
+            </summary>
+            <div class="essay-body">
+              <p>What defines a leader? I keep circling the question, most as the oldest of four. I&rsquo;ve found myself returning to three Confucian principles: xue-xi, knowledge; zhu-ren, service; you-yi, connection.</p>
+              <p>&ldquo;They who learn are not equal to those who love learning, and they who love learning are not equal to those who delight in it.&rdquo; Passionate learning. I want a compass, not just a destination &mdash; curiosity that never gets lost because it never runs out of places to go.</p>
+              <p>&ldquo;If you want happiness for an hour, take a nap. If you want happiness for a year, inherit a fortune. If you want happiness for a lifetime, help somebody.&rdquo; Service to others, especially the mentors and communities that shaped me.</p>
+              <p>&ldquo;A single conversation with a wise person is worth a month&rsquo;s study of books.&rdquo; Meaningful connection &mdash; the kind that widens a worldview one conversation at a time.</p>
+              <p>I don&rsquo;t know if I&rsquo;ll ever be sure I&rsquo;m a good leader. But these three keep asking the question back at me, which might be the point.</p>
+            </div>
+          </details>
+          <details class="essay">
+            <summary>
+              <span class="essay-head">
+                <span class="essay-title">A Handshake, Two Hemispheres</span>
+                <span class="teaser">On Thich Nhat Hanh, Martin Luther King, and the quiet strength of peace.</span>
+              </span>
+              <span class="essay-mark" aria-hidden="true">&rsaquo;</span>
+            </summary>
+            <div class="essay-body">
+              <p>In 1966, Thich Nhat Hanh, a Vietnamese Buddhist monk, and Martin Luther King Jr. met and shook hands to condemn the Vietnam War &mdash; two hemispheres, bound by a shared vision of a future built on nonviolence and compassion instead of the war-torn present around them. Their handshake is proof that humanity binds us stronger than our differences, and that peace has a quiet, prevailing strength in times of unrest. Equity doesn&rsquo;t happen overnight, but the least we can do is share a moment of it.</p>
+            </div>
+          </details>
+          <details class="essay">
+            <summary>
+              <span class="essay-head">
+                <span class="essay-title">The Queen Who Wouldn&rsquo;t Watch</span>
+                <span class="teaser">On Queen Lili&#699;uokalani&rsquo;s boycott of Hawaii&rsquo;s annexation.</span>
+              </span>
+              <span class="essay-mark" aria-hidden="true">&rsaquo;</span>
+            </summary>
+            <div class="essay-body">
+              <p>On July 7, 1898, the flag of the Kingdom of Hawaii came down for the last time. Queen Lili&#699;uokalani refused to watch, sequestering herself in her own palace rather than attend the ceremony that ended her nation, then imprisoned there afterward by the American businessmen who profited from it. Her boycott didn&rsquo;t stop the annexation. But her eight days of imprisonment, and the words she left behind, outlasted it &mdash; a testament to quiet defiance, and a voice for every land taken the same way.</p>
+            </div>
+          </details>
+          <details class="essay">
+            <summary>
+              <span class="essay-head">
+                <span class="essay-title">Generational Miscommunication</span>
+                <span class="teaser">On technology and the distance it opens between generations.</span>
+              </span>
+              <span class="essay-mark" aria-hidden="true">&rsaquo;</span>
+            </summary>
+            <div class="essay-body">
+              <p>Generational communication, strained by digitalization. Cultural, ideological, and political distances grow insuperable against technology&rsquo;s exponential curve. Modern devices become exclusive to the young; elderly communities are isolated by their own unfamiliarity with them. Polarization deepens, progress stagnates, ethical guardrails get bypassed entirely. We need technology built for every age, and a little more patience between generations.</p>
+            </div>
+          </details>
+          <details class="essay">
+            <summary>
+              <span class="essay-head">
+                <span class="essay-title">Endangerment of Math-Art</span>
+                <span class="teaser">On what math education loses when it forgets it&rsquo;s art.</span>
+              </span>
+              <span class="essay-mark" aria-hidden="true">&rsaquo;</span>
+            </summary>
+            <div class="essay-body">
+              <p>Math education, artful and endangered. Reduced to memorization and a ladder of competition, it&rsquo;s built to mint workers and GDP, not wonder. Along the way it enforces incompetence on girls and minorities, and calls it natural. But math is art &mdash; it&rsquo;s in the ocean&rsquo;s Fibonacci curl, the lyricism of a good proof. This is a dying, sacred thing.</p>
+            </div>
+          </details>
+          <details class="essay">
+            <summary>
+              <span class="essay-head">
+                <span class="essay-title">Overstimulation</span>
+                <span class="teaser">On the information firework, and what it costs us.</span>
+              </span>
+              <span class="essay-mark" aria-hidden="true">&rsaquo;</span>
+            </summary>
+            <div class="essay-body">
+              <p>We crave stimulation, need to stake our presence, need to know the world hasn&rsquo;t moved on without us &mdash; addicted to the firework of information. Family memories get punctured by pings; moments of human interaction get lost to the scroll. There&rsquo;s beauty in life&rsquo;s smaller gifts. In a world, every so often, unplugged.</p>
+            </div>
+          </details>
+          <details class="essay">
+            <summary>
+              <span class="essay-head">
+                <span class="essay-title">Media Desensitization</span>
+                <span class="teaser">On grief turned into ear-candy.</span>
+              </span>
+              <span class="essay-mark" aria-hidden="true">&rsaquo;</span>
+            </summary>
+            <div class="essay-body">
+              <p>Every day the news bleeds, and every day we get better at not flinching. Death tolls follow cooking videos in the same feed. Grief becomes ear-candy; sympathy becomes selfish relief. What isn&rsquo;t personal doesn&rsquo;t feel urgent, so it goes unhelped &mdash; and inequity gets to hide behind our indifference. The world is connected by our humanity before anything else. We fight desensitization with empathy, on purpose, over and over.</p>
+            </div>
+          </details>
+          <details class="essay">
+            <summary>
+              <span class="essay-head">
+                <span class="essay-title">Boredom</span>
+                <span class="teaser">On stalling the subway train on purpose.</span>
+              </span>
+              <span class="essay-mark" aria-hidden="true">&rsaquo;</span>
+            </summary>
+            <div class="essay-body">
+              <p>Boredom is the antithesis of modern life, so we hurry past it &mdash; past the street corner, past the pause, past the moments that don&rsquo;t announce themselves. Somewhere along the way we started measuring joy in numbers, color, and fame. Life moves like a subway train, but sometimes it&rsquo;s worth stalling it on purpose, just to sit in the boredom for a while.</p>
+            </div>
+          </details>
+        </div>
+
+        <p class="subhead">More</p>
+        <div class="rows">
+          <div class="row"><span class="row-k">Substack</span><span class="row-v"><a href="https://substack.com/@cathay06">@cathay06</a> &mdash; essays and half-formed thoughts</span></div>
+          <div class="row"><span class="row-k">Podcast</span><span class="row-v"><em>Remembering Home</em> &mdash; award-winning chefs on food, language, culture, and gentrification</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="making" aria-labelledby="h-making">
+      <span class="trace" aria-hidden="true">see</span>
+      <div class="rail">
+        <svg class="moon" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="14" fill="var(--moon)"/><circle cx="-10" cy="20" r="14" fill="var(--ground)"/></svg>
+        <span class="rail-label">Making</span>
+      </div>
+      <div class="content">
+        <h2 id="h-making">Making &amp; seeing</h2>
+        <div class="rows">
+          <div class="row"><span class="row-k">Art</span><span class="row-v"><a href="https://www.instagram.com/sky.06.sky/">@sky.06.sky</a> on Instagram</span></div>
+        </div>
+
+        <p class="subhead">Sights</p>
+        <p class="prose prose--soft" style="max-width:var(--measure);">today, that made me slow down.</p>
+        <div class="slideshow">
+          <button type="button" class="slide-stage" id="sights-stage" aria-label="Next photo">
+            <img id="sights-img" src="/_blob/26a2f0fa3755a17675fa8f1f93a5690a" alt="an old ropes course, fenced off">
+          </button>
+          <div class="slide-bar">
+            <button type="button" class="slide-btn" id="sights-prev" aria-label="Previous photo">&lsaquo;</button>
+            <p class="slide-cap" id="sights-cap">an old ropes course, fenced off. found it mid-run through the park. love stumbling on secret finds like this, even though the abandonment&rsquo;s a little sad. had half an urge to climb it.</p>
+            <button type="button" class="slide-btn" id="sights-next" aria-label="Next photo">&rsaquo;</button>
+          </div>
+          <p class="slide-count" id="sights-count">1 / 15</p>
+        </div>
+
+        <p class="subhead">Creative &amp; passion projects</p>
+        <div class="cards">
+          <div class="card card--soon">
+            <h3>Coming soon</h3>
+            <p>A proper home for the creative work &mdash; multimedia, magazine pieces, and the projects that don&rsquo;t fit anywhere else. Being built.</p>
+          </div>
+        </div>
+
+        <p class="close-quote">&ldquo;Who owns generative art &mdash; the prompter, the coder, or the original artist? Part of the beauty of art is inherent in the act of making it.&rdquo;<span>from notes for a tech-ethics podcast</span></p>
+      </div>
+    </section>
+
+    <section class="section" id="moving" aria-labelledby="h-moving">
+      <span class="trace" aria-hidden="true">wander</span>
+      <div class="rail">
+        <svg class="moon" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="14" fill="var(--moon)"/><circle cx="-13" cy="20" r="14" fill="var(--ground)"/></svg>
+        <span class="rail-label">Moving</span>
+      </div>
+      <div class="content">
+        <h2 id="h-moving">Running, writing, past lives</h2>
+        <div class="rows">
+          <div class="row"><span class="row-k">Love</span><span class="row-v">Nature, sports, moving, road trips, camping, hiking, volleyball, <a href="https://www.strava.com/athletes/skytian">running</a></span></div>
+          <div class="row"><span class="row-k">Arts</span><span class="row-v">Writing, <a href="https://www.goodreads.com/palimpsest06">reading</a>, listening to music (recently Hozier, Adele, the Chainsmokers&rsquo; <em>Sick Boy</em> album), arts &amp; crafts, photography of the extraordinary ordinary, piano and learning ukulele, thinking deeply, learning about random things and other cultures</span></div>
+          <div class="row"><span class="row-k">Card games</span><span class="row-v">24, with my grandma</span></div>
+        </div>
+
+        <p class="close-quote">&ldquo;Our life is a game, designed with a start and an end &mdash; each step a dice roll. In a way, we&rsquo;re studying life through the choices we make.&rdquo;<span>on game theory</span></p>
+      </div>
+    </section>
+
+    <section class="section" id="contact" aria-labelledby="h-contact">
+      <span class="trace" aria-hidden="true">hope</span>
+      <div class="rail">
+        <svg class="moon" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="14" fill="var(--moon)"/></svg>
+        <span class="rail-label">Contact</span>
+        <span class="rail-char">&#26395;</span>
+      </div>
+      <div class="content">
+        <h2 id="h-contact">Reach out, let&rsquo;s learn something</h2>
+        <div class="rows">
+          <div class="row"><span class="row-k">Career</span><span class="row-v"><a href="mailto:shengcathy@gmail.com">Email</a> <span class="pipe">|</span> <a href="https://github.com/cathysheng06">GitHub</a> <span class="pipe">|</span> <a href="https://tinyurl.com/cathySswe">R&eacute;sum&eacute;</a></span></div>
+          <div class="row"><span class="row-k">Beyond work</span><span class="row-v"><a href="https://x.com/sky06cs">X</a> <span class="pipe">|</span> <a href="https://substack.com/@cathay06">Substack</a> <span class="pipe">|</span> <a href="https://www.instagram.com/sky.06.sky/">Instagram</a> <span class="pipe">|</span> <a href="https://www.strava.com/athletes/skytian">Strava</a> <span class="pipe">|</span> <a href="https://www.goodreads.com/palimpsest06">Goodreads</a></span></div>
+        </div>
+        <p class="prose prose--soft" style="max-width:var(--measure);margin-top:.9rem;font-size:.9rem;">Both emails work &mdash; <a href="mailto:shengcathy@gmail.com">shengcathy@gmail.com</a> or <a href="mailto:cathysheng06@berkeley.edu">cathysheng06@berkeley.edu</a>.</p>
+
+        <p class="colophon">
+          <b>&#24076;</b> hope, to admire. &nbsp;<b>&#26395;</b> the full moon. &nbsp;Together, <b>&#24076;&#26395;</b> &mdash; a bagel on a cold morning, pennies in a jar, the promise of another day. I was named <b>&#24742;</b>; it sounds like the word for moon. &ldquo;Cathay&rdquo; is an old name for China; &ldquo;sky&rdquo; carries my Chinese initials; palimpsest is just a word I love. This page is one: the work and everything else, written over each other, both still showing through.
+        </p>
+        <p class="note" style="margin-top:1.2rem;">Live for honesty, and no regrets.</p>
+      </div>
+    </section>
+    </div>
+
+  </div>
+</main>
+
+<footer class="band">&copy; 2026 Cathy Sheng &nbsp;&middot;&nbsp; built as a palimpsest</footer>
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    var KEY = "cs-theme";
+    var btn = document.getElementById("tt");
+    function stored() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
+    function apply(t) {
+      if (t === "dark" || t === "light") { root.setAttribute("data-theme", t); }
+      else { root.removeAttribute("data-theme"); }
+      try { t ? localStorage.setItem(KEY, t) : localStorage.removeItem(KEY); } catch (e) {}
+    }
+    var s = stored();
+    if (s) apply(s);
+    btn.addEventListener("click", function () {
+      var attr = root.getAttribute("data-theme");
+      var isDark = attr === "dark" || (!attr && window.matchMedia("(prefers-color-scheme: dark)").matches);
+      apply(isDark ? "light" : "dark");
+    });
+  })();
+</script>
+
+<script>
+  (function () {
+    var pageWork = document.getElementById("page-work");
+    var pageLife = document.getElementById("page-life");
+    function locate(id) {
+      if (id === "life") return "life";
+      if (id === "work") return "work";
+      var el = document.getElementById(id);
+      if (!el) return null;
+      if (pageLife.contains(el)) return "life";
+      if (pageWork.contains(el)) return "work";
+      return null;
+    }
+    function go(id, updateHash) {
+      var where = locate(id);
+      if (where) {
+        pageLife.hidden = where !== "life";
+        pageWork.hidden = where !== "work";
+      }
+      var target = document.getElementById(id === "life" ? "writing" : id);
+      if (target) { target.scrollIntoView({ block: "start" }); }
+      else { window.scrollTo(0, 0); }
+      if (updateHash !== false) { history.replaceState(null, "", "#" + id); }
+    }
+    document.addEventListener("click", function (e) {
+      var a = e.target.closest('a[href^="#"]');
+      if (!a) return;
+      var id = a.getAttribute("href").slice(1);
+      if (!id) return;
+      e.preventDefault();
+      go(id);
+    });
+    go(location.hash.replace("#", "") || "work", false);
+  })();
+</script>
+
+<script>
+  (function () {
+    var slides = [
+      { src: "/_blob/26a2f0fa3755a17675fa8f1f93a5690a", cap: "an old ropes course, fenced off. found it mid-run through the park. love stumbling on secret finds like this, even though the abandonment’s a little sad. had half an urge to climb it." },
+      { src: "/_blob/66df9e54ad01ca670935f0a0164121ba", cap: "a butterfly outside my IBM window" },
+      { src: "/_blob/63711719ad86df2c1da85769f96fd790", cap: "koi, painted on the sidewalk" },
+      { src: "/_blob/77cd77a1287b0f6448708fa2ea0d4886", cap: "PrairyErth, left in the flowers" },
+      { src: "/_blob/88e768fe817b16179a7ac70309b7a422", cap: "sunset through the cedars" },
+      { src: "/_blob/b26a6e4121da2de3aca6378e989c0b98", cap: "my pencil sketch of a cat" },
+      { src: "/_blob/86095f9aaa16cb44087d1f834d74634c", cap: "they look behind at every step" },
+      { src: "/_blob/d1e18233a21edd4c021af12dd5795c80", cap: "somebody built a hobbit house for the neighborhood little library" },
+      { src: "/_blob/62b71a49f6edb182f4425a00855dbb47", cap: "shoot your shot" },
+      { src: "/_blob/7cf13b6b348d14ff0beeb98d009db43f", cap: "one bay, one ocean, one guy and his infinite thoughts" },
+      { src: "/_blob/09b362f6a90752c7a8b26191a9873594", cap: "fence of elementary kid paintings" },
+      { src: "/_blob/2c895fda40bbad0e11d745118267039f", cap: "love, spray-painted" },
+      { src: "/_blob/b3d510e73c518906628a13eba0510a8b", cap: "福, on a pomelo" },
+      { src: "/_blob/63078e1ca468afd02c296b138a6f3a49", cap: "self-assured morals plaque. the irony. evil ai." },
+      { src: "/_blob/ce6cdc6e76662644bbcbfbf3d8cc159a", cap: "names, loves, and forevers carved into impermanent bamboo. duke gardens." }
+    ];
+    var i = 0;
+    var img = document.getElementById("sights-img");
+    var cap = document.getElementById("sights-cap");
+    var count = document.getElementById("sights-count");
+    var stage = document.getElementById("sights-stage");
+    var prevBtn = document.getElementById("sights-prev");
+    var nextBtn = document.getElementById("sights-next");
+    function render() {
+      var s = slides[i];
+      img.src = s.src;
+      img.alt = s.cap;
+      cap.textContent = s.cap;
+      count.textContent = (i + 1) + " / " + slides.length;
+    }
+    function go(delta) {
+      i = (i + delta + slides.length) % slides.length;
+      render();
+    }
+    if (stage) stage.addEventListener("click", function () { go(1); });
+    if (nextBtn) nextBtn.addEventListener("click", function (e) { e.stopPropagation(); go(1); });
+    if (prevBtn) prevBtn.addEventListener("click", function (e) { e.stopPropagation(); go(-1); });
+  })();
+</script>
+
+</body></html>
