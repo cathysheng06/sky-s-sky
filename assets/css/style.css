@@ -299,6 +299,7 @@ p { margin: 0; }
 .essay-head { flex: 1; min-width: 0; }
 .essay-title { display: block; font-family: var(--f-display); font-size: 1.15rem; color: var(--ink); margin-bottom: .3rem; }
 .essay-head .teaser { display: block; font-family: var(--f-display); font-style: italic; font-size: .92rem; color: var(--moon); }
+.essay-head .image { display: block; font-family: var(--f-display); font-style: italic; font-size: .85rem; color: var(--ink-soft); margin-top: .35rem; }
 .essay-mark {
   font-family: var(--f-display); font-size: 1.3rem; color: var(--seal);
   transition: transform .15s ease; flex: 0 0 auto; line-height: 1;
