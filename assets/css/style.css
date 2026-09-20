@@ -298,6 +298,9 @@ p { margin: 0; }
 .essay summary::marker { content: ""; }
 .essay-head { flex: 1; min-width: 0; }
 .essay-title { display: block; font-family: var(--f-display); font-size: 1.15rem; color: var(--ink); margin-bottom: .3rem; }
+.essay-title-row { display: flex; align-items: center; gap: .55rem; margin-bottom: .3rem; }
+.essay-title-row .essay-title { margin-bottom: 0; }
+.essay-icon { width: 1.35rem; height: 1.35rem; flex: 0 0 auto; }
 .essay-head .teaser { display: block; font-family: var(--f-display); font-style: italic; font-size: .92rem; color: var(--moon); }
 .essay-head .image { display: block; font-family: var(--f-display); font-style: italic; font-size: .85rem; color: var(--ink-soft); margin-top: .35rem; }
 .essay-mark {
