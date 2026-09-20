@@ -65,6 +65,10 @@ body {
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .icon-coin, .icon-abacus .bead-slide, .icon-lantern .flame, .icon-fort .lute-string,
+  .icon-mask .droplet, .icon-ripple .ring, .icon-spiral path, .icon-train .door-line {
+    animation: none !important;
+  }
 }
 
 a {
@@ -301,6 +305,32 @@ p { margin: 0; }
 .essay-title-row { display: flex; align-items: center; gap: .55rem; margin-bottom: .3rem; }
 .essay-title-row .essay-title { margin-bottom: 0; }
 .essay-icon { width: 1.35rem; height: 1.35rem; flex: 0 0 auto; }
+
+/* ---------- essay icon motion ---------- */
+@keyframes coin-flip { 0%, 100% { transform: scaleX(1); } 50% { transform: scaleX(.12); } }
+.icon-coin { transform-box: fill-box; transform-origin: center; animation: coin-flip 3.2s ease-in-out infinite; }
+
+@keyframes bead-slide { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(3px); } }
+.icon-abacus .bead-slide { transform-box: fill-box; transform-origin: center; animation: bead-slide 2.6s ease-in-out infinite; }
+
+@keyframes flame-dim { 0%, 100% { opacity: .55; } 50% { opacity: .12; } }
+.icon-lantern .flame { animation: flame-dim 3.4s ease-in-out infinite; }
+
+@keyframes string-hum { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(1.35); } }
+.icon-fort .lute-string { transform-box: fill-box; transform-origin: center; animation: string-hum .5s ease-in-out infinite; }
+
+@keyframes drop-fall { 0% { transform: translateY(0); opacity: 0; } 15%, 85% { opacity: .6; } 100% { transform: translateY(4px); opacity: 0; } }
+.icon-mask .droplet { animation: drop-fall 2.8s ease-in infinite; }
+
+@keyframes ripple-out { 0% { transform: scale(.6); opacity: .8; } 100% { transform: scale(1.15); opacity: 0; } }
+.icon-ripple .ring { transform-box: fill-box; transform-origin: center; animation: ripple-out 2.4s ease-out infinite; }
+.icon-ripple .ring-outer { animation-delay: .6s; }
+
+@keyframes spiral-draw { 0% { stroke-dashoffset: 60; } 100% { stroke-dashoffset: 0; } }
+.icon-spiral path { stroke-dasharray: 60; animation: spiral-draw 3s ease-in-out infinite alternate; }
+
+@keyframes door-pulse { 0%, 100% { opacity: .3; } 50% { opacity: 1; } }
+.icon-train .door-line { animation: door-pulse 3.6s ease-in-out infinite; }
 .essay-head .teaser { display: block; font-family: var(--f-display); font-style: italic; font-size: .92rem; color: var(--moon); }
 .essay-head .image { display: block; font-family: var(--f-display); font-style: italic; font-size: .85rem; color: var(--ink-soft); margin-top: .35rem; }
 .essay-mark {
