@@ -106,7 +106,7 @@ p { margin: 0; }
   letter-spacing: .02em; color: var(--ink); text-decoration: none;
 }
 .wordmark:hover { color: var(--ink); }
-.mark-art { width: 1.4rem; height: 1.4rem; border-radius: 3px; object-fit: cover; flex: 0 0 auto; border: 1px solid var(--hair); }
+.mark-art { width: 1.5rem; height: 1.5rem; flex: 0 0 auto; }
 .tt {
   background: none; border: 1px solid var(--hair); color: var(--ink-soft);
   width: 2rem; height: 2rem; border-radius: 50%; cursor: pointer;
